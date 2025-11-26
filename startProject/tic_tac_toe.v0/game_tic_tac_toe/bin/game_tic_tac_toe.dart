@@ -50,7 +50,6 @@ void main(List<String> arguments) {
   }
 
   while (currentState == gameContinue) {
-    // Отрисовка в начале каждого цикла
     stdout.write('  ');
     for (int i = 0; i < boardSize; i++) {
       stdout.write('${i + 1} ');
@@ -66,6 +65,48 @@ void main(List<String> arguments) {
     break;
   }
 
-    // stdout.write('Введите координаты для установки -> ${gameSigns[currentPlayer]}: ');
-    // List<int> coord = stdin.readLineSync()!.split(' ');
+  while (statusGame == gameContinue) {
+    StringBuffer messageByGamer = StringBuffer();
+    messageByGamer.write(
+      "Ходит -> ${gameSigns[currentPlayer]}, введите координаты (x, y) или [q] для выхода: "
+    );
+
+    bool isValidInput = true;
+    while (isValidInput) {
+      String? input = stdin.readLineSync();
+      
+      if (input == null) {
+        print('Неудачная попытка ввода!');
+        continue;
+      } else if (input == 'q') {
+        print('Выход из программы');
+        return;
+      }
+
+      final [x_, y_, ...] = input.split(' ');
+      int? x = int.tryParse(x_);
+      int? y = int.tryParse(y_);
+
+      if (x == null || y == null) {
+        print('Неудачная попытка ввода!');
+        continue;
+      } else {
+        x--; y--;
+      }
+      
+      if (x < 1 || x >= boardSize || y < 1 || y >= boardSize ) {
+        print('Введенные числа выходят за рамки индекса');
+        continue;
+      } else if (board[x][y] != empty) {
+        print('Клетка уже занята');
+      } else if (board[x][y] == empty) {
+        isValidInput = false;
+        board[x][y] = currentPlayer;
+
+        // Проверки всех выигрышных комбинаций
+      }
+      
+    }
+  currentPlayer = currentPlayer == cross ? zero : cross;
+  }
 }
