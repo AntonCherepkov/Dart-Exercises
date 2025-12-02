@@ -26,6 +26,6 @@ void main(List<String> arguments) {
     (double a) => a > 0,
     (double a) => a < 10
   ];
-
+  
   print(proccessNumber(2.2, operations, validators));
 }
