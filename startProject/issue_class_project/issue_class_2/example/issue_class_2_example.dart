@@ -9,4 +9,6 @@ void main() {
   print("result: ${vector_4.toString()}");
   print("index 0: ${vector_1[0]}");
   print("index 1: ${vector_1[1]}");
+  vector_1[0] = 3;
+  print("result chenges in vector 1 by index: ${vector_1.toString()}");
 }

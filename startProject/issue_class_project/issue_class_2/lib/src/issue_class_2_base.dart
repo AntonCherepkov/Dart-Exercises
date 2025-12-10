@@ -1,8 +1,12 @@
 import 'dart:io';
 
+/** Задание 1 - Класс Vector2D 
+ * Переопределены операторы +-*[][]= ==
+*/
+
 class Vector2D {
-  final double x;
-  final double y;
+  late double x;
+  late double y;
 
   static int createdVerctors = 0;
   static void showStates() {
@@ -31,7 +35,17 @@ class Vector2D {
     } else if (index == 1) {
       return y;
     } else {
-      throw RangeError;
+      throw RangeError("Index beyond the range");
+    }
+  }
+
+  void operator[]=(int index, double data) {
+    if (index == 0) {
+      x = data;
+    } else if (index == 1) {
+      y = data;
+    } else {
+      throw RangeError("Index beyond the range");
     }
   }
 
