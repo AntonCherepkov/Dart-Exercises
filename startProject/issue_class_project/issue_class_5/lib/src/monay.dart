@@ -1,11 +1,10 @@
-import 'dart:js_interop';
+import 'dart:math';
 
 part "usd.dart";
 part "euro.dart";
 part "rub.dart";
 part "paper_rub.dart";
 part "digit_rub.dart";
-part "exchange_rate.dart";
 
 abstract class Monay {
   late final String name;
@@ -16,13 +15,13 @@ abstract class Monay {
   int get smallMonay => _smallMonay;
   
   void set value(double value) => _value = value;
-  void set smallMonay(int value) => value ~/ 100;
+  void set smallMonay(int value) => _smallMonay = (value ~/ 100).toInt();
 
+  Monay(value, this.name)
+    : _value = value {
+      smallMonay = (value ~/ 100).toInt();
+    }
 
-
-  Monay(value, this.name): _value = value;
-
-  // чисто абстрактные методы
   Monay operator+(Object other);
   Monay operator-(Object other);
 }
