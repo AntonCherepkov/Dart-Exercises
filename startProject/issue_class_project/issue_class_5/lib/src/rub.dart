@@ -1,12 +1,10 @@
 part of 'monay.dart';
 
-class Rub extends Monay {
-  late final int _copekc;
+class Rub extends Monay with ExchangeRate {
+  Rub(value): super(value, "RUB");
+  Rub.inputType(value, {required name}): super(value, name);
 
-  int get copekc => _copekc;
-  void set copec(int value) => _copekc = value;  
 
-  Rub(int copeck): _copekc = copeck;
   // factory Rub.paperMonay(int nominal_value) {
   //   case(nominal_value) {
   //     10 => ...;
@@ -24,24 +22,22 @@ class Rub extends Monay {
   // TODO: в перегрузки операторов надо поместить вариант, при котором мы складываем валюту 
   // в долларах
 
-  @override
   Monay operator +(Object other) {
-    if (other is int) {
-      return Rub(copekc + other);
+    if (other is double) {
+      return Rub(value + other);
     } else if (other is Rub) {
-      return Rub(copekc + other.copekc);
+      return Rub(value + other.value);
     } else if (other is Usd) {
       
     }
     throw UnimplementedError();
   }
 
-  @override
   Monay operator -(Object other) {
     if (other is int) {
-      return Rub(copekc - other);
+      return Rub(value - other);
     } else if (other is Rub) {
-      return Rub(copekc - other.copekc);
+      return Rub(value - other.value);
     }
     throw UnimplementedError();
   }
