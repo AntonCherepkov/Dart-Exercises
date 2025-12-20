@@ -1,3 +1,4 @@
 library;
 
-export 'src/monay.dart';
+export 'src/monay/monay.dart';
+export 'src/ATMmachine/machine.dart';
