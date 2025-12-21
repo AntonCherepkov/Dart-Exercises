@@ -27,6 +27,7 @@ class RestState implements State {
   void inputData(IATMMachine atmMachine) {
     print("Вставте банковскую карту");
     atmMachine.setState(StatesATMMachine.readCard);
+    
   }
 
   @override
@@ -43,7 +44,24 @@ class ReadCardState implements State {
   @override
   void inputData(IATMMachine atmMachine) {
     print("Имитация ввода карты --------------");
-    atmMachine.simulationCardEntry();
+    late final parts;
+
+    do {
+      String? inputData = stdin.readLineSync();
+      if (inputData != null) {
+        parts = inputData.split(" ");
+        if (parts != 2) {
+          print("Неверно введенные данные");
+          continue;
+        }
+      }
+      break;
+    } while (true);
+    
+    var [name, pinCode, ...] = parts;
+    int pinCodeInt = int.parse(pinCode);
+    
+    atmMachine.simulationCardEntry(name, pinCodeInt);
     atmMachine.setState(StatesATMMachine.mainMenu);
   }
 
