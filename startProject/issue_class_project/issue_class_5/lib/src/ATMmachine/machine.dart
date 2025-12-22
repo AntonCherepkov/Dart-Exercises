@@ -51,7 +51,7 @@ class AtmMachine implements IATMMachine {
   bool simulationCardEntry(String cardName, int pinCode) {
     print('Проверка карты ------');
     if (_usersRegistry.containsKey(cardName)) {
-      AccountUser user = _usersRegistry[cardName]!;
+      var user = _usersRegistry[cardName]!;
       if (pinCode == user.pinCode) {
         _currentUser = user;
         return true;

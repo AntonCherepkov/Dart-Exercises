@@ -4,9 +4,9 @@ class AccountUser {
   late final String idCard;
   late String name;
   late double accountBalance;
-  late final pinCode;
+  late final int pinCode;
   
-  AccountUser(idCard, name, pinCode, [accountBalance = 0]);
+  AccountUser(this.idCard, this.name, this.pinCode, [this.accountBalance = 0]);
 
   @override
   void operator +(double monay) {

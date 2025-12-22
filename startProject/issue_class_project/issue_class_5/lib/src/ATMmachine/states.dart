@@ -44,13 +44,13 @@ class ReadCardState implements State {
   @override
   void inputData(IATMMachine atmMachine) {
     print("Имитация ввода карты --------------");
-    late final parts;
+    List parts = [];
 
     do {
       String? inputData = stdin.readLineSync();
       if (inputData != null) {
         parts = inputData.split(" ");
-        if (parts != 2) {
+        if (parts.length != 2) {
           print("Неверно введенные данные");
           continue;
         }
@@ -58,7 +58,7 @@ class ReadCardState implements State {
       break;
     } while (true);
     
-    var [name, pinCode, ...] = parts;
+    var [name, pinCode] = parts;
     int pinCodeInt = int.parse(pinCode);
     
     atmMachine.simulationCardEntry(name, pinCodeInt);
