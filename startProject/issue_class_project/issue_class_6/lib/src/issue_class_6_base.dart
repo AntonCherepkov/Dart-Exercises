@@ -17,14 +17,14 @@ extension type NameString(String value) {
   }
 }
 
-extension type Box<T>(List<T> _itmes) {
+extension type Box<T>(List<T> _items) {
   
-  void add (T elem) => _itmes.add(elem);
+  void add (T elem) => _items.add(elem);
   
-  T? firstOrNull() => _itmes.isEmpty ? null : _itmes[0];
+  T? firstOrNull() => _items.isEmpty ? null : _items[0];
   
   Iterable<T> where(bool Function(T) predicate) {
-    return List.from(_itmes.where(predicate));
+    return List.from(_items.where(predicate));
   }
 
   Box<R> map<R>(R Function(T) mapper) {
@@ -32,5 +32,23 @@ extension type Box<T>(List<T> _itmes) {
             List.from(
               _items.map(
                 (e) => mapper(e))));
+  }
+}
+
+class UserDto {
+  final String id;
+  final String name;
+  final List<String> roles;
+
+  UserDto(this.id, this.name, this.roles);
+}
+
+extension type User(UserDto dto) {
+  // TODO: реализовать
+}
+
+extension type UserResponse(Map<String, dynamic> raw) {
+  Iterable<User> parseUsers() sync* {
+    // TODO: реализовать
   }
 }
