@@ -46,6 +46,9 @@ class UserDto {
   final List<String> roles;
 
   UserDto(this.id, this.name, this.roles);
+
+  @override
+  String toString() => 'name: $name\nid: $id\nroles: ${roles.join(", ")}';
 }
 
 // Расширение над Id пользователя, добавим валидацию --------------------------
@@ -64,8 +67,31 @@ extension type User(UserDto dto) {
   String get displayName => "Name ${dto.id}";
 }
 
+// Расширение с генератором внутри для формирование User объектов из списка ---
 extension type UserResponse(Map<String, dynamic> raw) {
   Iterable<User> parseUsers() sync* {
-    // TODO: реализовать
-   }
+    final users = raw['users'];
+    if (users is! List) {
+      throw TypeError();
+    }
+    for (var user in users) {
+      if (user is! Map<String, dynamic>) {
+        continue;
+      }
+      final id = user['id'];
+      final name = user['name'];
+      final roles = user['roles'];
+
+      if (id is! String || name is! String || roles is! List) {
+        continue;
+      }
+
+      final stringRoles = roles.whereType<String>().toList();
+
+      final userId = UserId(id);
+      if (!userId.validId()) continue;
+
+      yield User(UserDto(id, name, stringRoles));
+    }
+  }
 }

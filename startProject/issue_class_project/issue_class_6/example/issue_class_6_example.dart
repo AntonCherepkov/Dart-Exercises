@@ -11,4 +11,25 @@ void main() {
   print('first null: ${box.firstOrNull()}');
   print('add 1: ${box.map((e) => e + 1)}');
   print('even: ${box.where((e) => e % 2 == 0)}');
+
+  final Map<String, dynamic> rawResponse = {
+    "users": [
+      {
+        "id": "12345",
+        "name": "Alex",
+        "roles": ["admin", "user"]
+      },
+      {
+        "id": "98765",
+        "name": "Bob",
+        "roles": ["user"]
+      }
+    ]
+  };
+  
+  var userResponse = UserResponse(rawResponse);
+
+  for (var user in userResponse.parseUsers()) {
+    print('\n$user');
+  }
 }
