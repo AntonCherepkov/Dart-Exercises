@@ -17,19 +17,25 @@ void main() {
       {
         "id": "12345",
         "name": "Alex",
-        "roles": ["admin", "user"]
+        "roles": Role(["admin", "user"])
       },
       {
         "id": "98765",
         "name": "Bob",
-        "roles": ["user"]
+        "roles": Role(["user"])
       }
     ]
   };
   
+  print('Множественная проверка------------------------');
   var userResponse = UserResponse(rawResponse);
+  final admins = userResponse
+      .parseUsers()
+      .where((u) => u.isAdmin)
+      .map((u) => u.displayName)
+      .toList();
 
-  for (var user in userResponse.parseUsers()) {
-    print('\n$user');
+  for (var admin in admins) {
+    print(admin.toString());
   }
 }

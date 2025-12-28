@@ -95,3 +95,14 @@ extension type UserResponse(Map<String, dynamic> raw) {
     }
   }
 }
+
+extension type Role(List<String> roles) {
+  bool get isSystemRole => roles.contains('admin');
+
+  String operator [](int index) {
+    if (index < 0 || index > roles.length) {
+      throw RangeError('индекс за границами диапазона');
+    }
+    return roles[index];
+  }
+}
