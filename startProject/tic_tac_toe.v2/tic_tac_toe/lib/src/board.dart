@@ -21,6 +21,7 @@ class Board {
     if (SizeBoard(inputSize).isValidSize) {
       sizeBoard = inputSize;
     } else {
+      print('Введено число выходящее за диапазон, установили дефолтное');
       sizeBoard = defaultSize;
     }  
     // генерация списка - списков с пустыми значениями

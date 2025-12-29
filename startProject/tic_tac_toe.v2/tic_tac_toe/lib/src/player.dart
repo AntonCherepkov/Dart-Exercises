@@ -5,7 +5,7 @@ class Player {
 
   Player(this.cellType);
 
-  void switchPlayer() {
+  void nextPlayer() {
     cellType = cellType == CellType.cross ? CellType.nought : CellType.cross;
   }
 
