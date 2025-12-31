@@ -16,7 +16,7 @@ class Game {
     Player(CellType.nought)
   ];
   
-  Map<GameStates, SharedState> mapStates = {
+  final mapStates = <GameStates, SharedState>{
     GameStates.movePlayer: movePlayer(),
     GameStates.draw: Drow(),
     GameStates.crossWin: CrossWin(),
@@ -42,7 +42,7 @@ class Game {
     if (state == null) {
       throw StateError('Ошибка установки состояния');
     }
-    setState = mapStates[state]!;
+    setState = state;
 
     // инициализация игрового поля
     var sizeInt;

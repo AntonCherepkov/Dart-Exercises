@@ -56,13 +56,13 @@ class Board {
 
   // проверка на то, является ли клетка пустой
   bool _makeMove(int x, int y) {
-    return board[x][y] == CellType.empty;
+    return board[x - 1][y - 1] == CellType.empty;
   }
 
   // установка символа в клетку
   bool setSymbol(int x, int y, CellType cellType) {
     if (_makeMove(x, y)) {
-      board[x][y] = cellType; 
+      board[x - 1][y - 1] = cellType; 
       return true;
     }
     return false;
