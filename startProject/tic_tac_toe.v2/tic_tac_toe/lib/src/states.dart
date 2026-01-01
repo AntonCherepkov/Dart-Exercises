@@ -18,23 +18,28 @@ abstract interface class SharedState {
 class movePlayer implements SharedState {
   @override
   void moveTransition(Game game) {
+    print("Ход игрока -> ${game.currentPlayer.symbol}");
     while(true) {
       stdout.write("Введите координаты клетки через пробел: ");
       String? inputCellStr = stdin.readLineSync();
       if (inputCellStr == null) {
-        print("Вы забыли ввести координаты!");
         continue;
+      } else if (inputCellStr == 'q') {
+        print("Завершение игры!");
+        game.setState = game.mapStates[GameStates.quit]!;
+        break;
       } else {
         List<int?> inputCellInt = List
             .from(inputCellStr
             .split(' ')
             .map((e) => int.tryParse(e)));
-        if (inputCellInt.every((e) => e is! int)) {
+        if (inputCellInt.any((e) => (e == null))) {
           print('Введенное значение должно быть числом');
           continue;
         } else {
           var x = inputCellInt[0];
           var y = inputCellInt[1];
+
           bool resultState = game.gameBoard.setSymbol(
             x!, y!, game.currentPlayer.cellType);
           if (resultState) {

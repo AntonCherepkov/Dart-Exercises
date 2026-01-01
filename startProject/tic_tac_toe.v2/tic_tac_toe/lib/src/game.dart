@@ -95,10 +95,15 @@ class Game {
         setState = mapStates[GameStates.draw]!;
         break;
       }
+      gameBoard.printBoard();
       currentPlayer.nextPlayer();
     }
     if (exitGame()) {
-      print('Игра завершена победой ${currentPlayer.symbol}');
+      gameBoard.printBoard;
+      print('Игра завершена');
+      if (gameBoard.winner != null && gameBoard.winner != CellType.empty) {
+        print("Победа игрока: ${currentPlayer.symbol}");
+      }
     }
   }
 }

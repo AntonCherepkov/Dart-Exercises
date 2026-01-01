@@ -3,7 +3,7 @@ part of 'game.dart';
 // расширение для значения размера поля 
 extension type SizeBoard(int size) {
   bool get isValidSize {
-    if (size < 0 && size > 9) {
+    if (size < 3 || size > 9) {
       return false;
     } else {
       return true;
@@ -16,6 +16,7 @@ class Board {
   late final int sizeBoard;
   late List<List<CellType>> board;
   int defaultSize = 3;
+  CellType? winner;
 
   Board(int inputSize) {
     if (SizeBoard(inputSize).isValidSize) {
@@ -35,7 +36,7 @@ class Board {
   void printBoard() {
     stdout.write('  ');
     for (int i = 0; i < sizeBoard; i ++) {
-      stdout.write('${i + 2} ');
+      stdout.write('${i + 1} ');
     }
     stdout.write('\n');
     for (int j = 0; j < sizeBoard; j++) {
@@ -70,14 +71,22 @@ class Board {
 
   bool checkWin(CellType player) {
     for (int i = 0; i < sizeBoard; i++) {
-      if (board[i].every((cell) => cell == player)) return true;
-      if (board.every((row) => row[i] == player)) return true;
+      if (board[i].every((cell) => cell == player)) {
+        winner = player;
+        return true;
+      }
+      if (board.every((row) => row[i] == player)) {
+        winner = player;
+        return true;
+      }
       if (List.generate(sizeBoard, (i) => board[i][i])
           .every((cell) => cell == player)) {
+        winner = player;
         return true;
       }
       if (List.generate(sizeBoard, (i) => board[i][sizeBoard - i - 1])
           .every((cell) => cell == player)) {
+        winner = player;
         return true;
       }
     }
@@ -85,7 +94,11 @@ class Board {
   }
 
   bool checkDrow() {
-    return board.every((row) => row.every(
+    var result =  board.every((row) => row.every(
       (cell) => cell != CellType.empty));
+    if (result) {
+      winner = CellType.empty;
+    }
+    return result;
   }
 }
